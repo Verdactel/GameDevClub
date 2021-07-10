@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02fa42eb874c4d1498c3b06ff6c0c1bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_target: {fileID: 477764400}
+  m_target: {fileID: 546136275}
   m_proj: {fileID: 930109016949000617, guid: 1bb70366a8abe114b95bedc4e6ead2c3, type: 3}
+  m_difficulty: 1
 --- !u!1 &477764400
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +179,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477764401}
-  - component: {fileID: 477764402}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -201,22 +201,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &477764402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477764400}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c399a421ce4014da136f4f835a4527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_player_speed: 10
-  m_player_damage: 1
-  m_health: 10
-  m_isAlive: 1
 --- !u!1 &546136275
 GameObject:
   m_ObjectHideFlags: 0
