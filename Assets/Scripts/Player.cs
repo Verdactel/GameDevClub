@@ -9,6 +9,12 @@ public class Player : MonoBehaviour
 
     public int m_health = 10;
     public bool m_isAlive = true;
+    public bool m_isSaving = false;
+
+    public int m_dsMaxCount = 5;
+    public float m_dsTime = 2f;
+    private int m_dsCurrentCount = 0;
+    
 
     void Update()
     {
@@ -32,6 +38,31 @@ public class Player : MonoBehaviour
                 this.gameObject.transform.position += (Vector3.right * m_player_speed * Time.deltaTime);
             }
         }
+        if(!m_isAlive && m_isSaving)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                m_dsCurrentCount++;
+            }
+            
+            if(m_dsCurrentCount >= m_dsMaxCount)
+            {
+                m_isAlive = true;
+                m_isSaving = false;
+                m_dsTime = 2f;
+                //disable ui
+            }
+
+            if(m_dsTime >= 0f)
+            {
+                m_dsTime -= Time.deltaTime;
+            }
+            else
+            {
+                m_isSaving = false;
+                Debug.Log("Defeated");
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,7 +73,13 @@ public class Player : MonoBehaviour
         if (m_health <= 0)
         {
             m_isAlive = false;
+            DeathSave();
         }
+    }
+    private void DeathSave()
+    {
+        m_isSaving = true;
+        //set UI
     }
     private void OnTriggerExit(Collider other)
     {
