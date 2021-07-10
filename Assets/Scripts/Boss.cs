@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    [SerializeField] GameObject m_player;
     public float m_dificulty = 1.0f;
 
     void Update()
