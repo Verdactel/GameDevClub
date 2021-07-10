@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Owchy");
 
@@ -43,5 +43,9 @@ public class Player : MonoBehaviour
         {
             m_isAlive = false;
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("No more owchy");
     }
 }
