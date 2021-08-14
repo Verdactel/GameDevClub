@@ -4,6 +4,7 @@ using UnityEngine;
 
 [System.Serializable] public class ParalaxLayer
 {
+    public bool m_isActive = true;
     public Sprite m_sprite;
     public bool m_doesTile = false;
     public bool m_isForeground = false;
