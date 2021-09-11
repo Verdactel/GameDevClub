@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     [Header("Fill")]
     [SerializeField] float m_groundY = -7.95f;
     [SerializeField] Transform m_bottomPoint;
+    [SerializeField] Slider m_healthBarSlider;
     
 
     [Header("\"Public Variables (Touch with cution)\"")]
@@ -130,6 +132,18 @@ public class Player : MonoBehaviour
                 pos.y = 10;
             }
             this.gameObject.transform.position = pos;
+        }
+        #endregion
+
+        #region Health
+        {
+            m_healthBarSlider.value = ((float)m_health / (float)(m_maxHealth));
+            if (m_health <= 0)
+            {
+                Debug.Log("Ouchy Wa Wa, I'm a dead! I've died " + (m_deathCount + 1) + " time(s) now!");
+                m_deathCount++;
+                m_health = m_maxHealth;
+            }
         }
         #endregion
     }
