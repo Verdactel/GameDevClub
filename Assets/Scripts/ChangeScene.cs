@@ -5,8 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour
 {
-    public void Transition(string sceneName)
+    public void ChangeSceneSingle(string sceneName)
     {
-        SceneManager.LoadScene(sceneName); //LoadSceneMode.Additive loads scenes overlapping
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    public void ChangeSceneAdditive(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive); //LoadSceneMode.Additive loads scenes overlapping
     }
 }
