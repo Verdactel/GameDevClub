@@ -6,21 +6,72 @@ public class ParalaxEngine : MonoBehaviour
 {
     // This system runs on the assumption of the camera being at 0 -500 0, orthographic, and vertical size 10
 
-    [SerializeField] public ParalaxLayer[] m_layers;
+    [SerializeField] public List<ParalaxLayerGroup> m_levelSetting;
 
 
-    private List<List<GameObject>> m_layerImageGroups = new List<List<GameObject>>();
-    private float screenWidth;
+    public float m_speedMult;
 
-    private void Start()
+    private int m_settingIndex;
+    private List<List<GameObject>> m_layerImageGroups;
+    private float screenWidth = 20.0f / ((float)Screen.height / (float)Screen.width); // 20 = vertical size * 2
+
+
+    void Update()
     {
-        screenWidth = 20.0f / ((float)Screen.height / (float)Screen.width); // 20 = vertical size * 2
+        float distance = 1 * Time.deltaTime;
 
-        foreach(ParalaxLayer layer in m_layers)
+        for (int f = 0; f < m_layerImageGroups.Count; f++)
+        {
+            if (!m_levelSetting[m_settingIndex].m_layers[f].m_isActive)
+            {
+                continue;
+            }
+
+            for (int n = 0; n < m_layerImageGroups[f].Count; n++)
+            {
+                SpriteRenderer spriteR = m_layerImageGroups[f][n].GetComponent<SpriteRenderer>();
+
+                //Move
+                m_layerImageGroups[f][n].transform.position += Vector3.right * m_levelSetting[m_settingIndex].m_layers[f].m_scrollSpeed * distance * m_speedMult;
+
+                //If scrolled off left, move to right, and vice versa
+                if (m_layerImageGroups[f][n].transform.position.x < (-screenWidth / 2) - (spriteR.sprite.bounds.extents.x * Mathf.Abs(m_levelSetting[m_settingIndex].m_layers[f].m_scale.x) + (m_levelSetting[m_settingIndex].m_layers[f].m_gap / 2)))
+                {
+                    m_layerImageGroups[f][n].transform.position += Vector3.right * ((spriteR.sprite.bounds.size.x * Mathf.Abs(m_levelSetting[m_settingIndex].m_layers[f].m_scale.x) + m_levelSetting[m_settingIndex].m_layers[f].m_gap) * m_layerImageGroups[f].Count);
+                    if (!m_levelSetting[m_settingIndex].m_layers[f].m_doesTile && m_layerImageGroups[f].Count % 2 == 1)
+                    {
+                        spriteR.flipX = !spriteR.flipX;
+                    }
+                }
+                else if (m_layerImageGroups[f][n].transform.position.x > (screenWidth / 2) + (spriteR.sprite.bounds.extents.x * Mathf.Abs(m_levelSetting[m_settingIndex].m_layers[f].m_scale.x) + (m_levelSetting[m_settingIndex].m_layers[f].m_gap / 2)))
+                {
+                    m_layerImageGroups[f][n].transform.position -= Vector3.right * ((spriteR.sprite.bounds.size.x * Mathf.Abs(m_levelSetting[m_settingIndex].m_layers[f].m_scale.x) + m_levelSetting[m_settingIndex].m_layers[f].m_gap) * m_layerImageGroups[f].Count);
+                    if (!m_levelSetting[m_settingIndex].m_layers[f].m_doesTile && m_layerImageGroups[f].Count % 2 == 1)
+                    {
+                        spriteR.flipX = !spriteR.flipX;
+                    }
+                }
+            }
+        }
+    }
+
+    public void LoadNewSetting(int settingIndex)
+    {
+        for (int f = transform.childCount - 1; f >= 0; f--)
+        {
+            Destroy(this.transform.GetChild(f).gameObject);
+        }
+
+
+        m_settingIndex = settingIndex;
+        m_layerImageGroups = new List<List<GameObject>>();
+
+        foreach (ParalaxLayer layer in m_levelSetting[settingIndex].m_layers)
         {
             GameObject parent = new GameObject();
             parent.transform.parent = this.transform;
             parent.name = "Paralax Layer Group";
+
 
             m_layerImageGroups.Add(new List<GameObject>());
 
@@ -40,7 +91,7 @@ public class ParalaxEngine : MonoBehaviour
                 SpriteRenderer spriteR = m_layerImageGroups[m_layerImageGroups.Count - 1][f].AddComponent<SpriteRenderer>();
                 spriteR.sprite = layer.m_sprite;
                 spriteR.transform.localScale *= layer.m_scale;
-                if(!layer.m_doesTile && f % 2 == 1)
+                if (!layer.m_doesTile && f % 2 == 1)
                 {
                     spriteR.flipX = true;
                 }
@@ -56,46 +107,6 @@ public class ParalaxEngine : MonoBehaviour
                 {
                     m_layerImageGroups[m_layerImageGroups.Count - 1][f].transform.position = m_layerImageGroups[m_layerImageGroups.Count - 1][0].transform.position
                             + (Vector3.right * (spriteR.sprite.bounds.size.x * Mathf.Abs(layer.m_scale.x) + layer.m_gap) * f);
-                }
-            }
-        }
-    }
-
-
-    void Update()
-    {
-        float distance = 1 * Time.deltaTime;
-
-        for(int f = 0; f < m_layerImageGroups.Count; f++)
-        {
-            if (!m_layers[f].m_isActive)
-            {
-                continue;
-            }
-
-            for (int n = 0; n < m_layerImageGroups[f].Count; n++)
-            {
-                SpriteRenderer spriteR = m_layerImageGroups[f][n].GetComponent<SpriteRenderer>();
-
-                //Move background
-                m_layerImageGroups[f][n].transform.position += Vector3.right * m_layers[f].m_scrollSpeed * distance;
-
-                //If scrolled off left, move to right, and vice versa
-                if (m_layerImageGroups[f][n].transform.position.x < (-screenWidth / 2) - (spriteR.sprite.bounds.extents.x * Mathf.Abs(m_layers[f].m_scale.x) + (m_layers[f].m_gap / 2)))
-                {
-                    m_layerImageGroups[f][n].transform.position += Vector3.right * ((spriteR.sprite.bounds.size.x * Mathf.Abs(m_layers[f].m_scale.x) + m_layers[f].m_gap) * m_layerImageGroups[f].Count);
-                    if (!m_layers[f].m_doesTile && m_layerImageGroups[f].Count % 2 == 1)
-                    {
-                        spriteR.flipX = !spriteR.flipX;
-                    }
-                }
-                else if (m_layerImageGroups[f][n].transform.position.x > (screenWidth / 2) + (spriteR.sprite.bounds.extents.x * Mathf.Abs(m_layers[f].m_scale.x) + (m_layers[f].m_gap / 2)))
-                {
-                    m_layerImageGroups[f][n].transform.position -= Vector3.right * ((spriteR.sprite.bounds.size.x * Mathf.Abs(m_layers[f].m_scale.x) + m_layers[f].m_gap) * m_layerImageGroups[f].Count);
-                    if (!m_layers[f].m_doesTile && m_layerImageGroups[f].Count % 2 == 1)
-                    {
-                        spriteR.flipX = !spriteR.flipX;
-                    }
                 }
             }
         }

@@ -374,7 +374,7 @@ RectTransform:
   m_Children:
   - {fileID: 1369027162}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -410,63 +410,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b48ba769b133464287e6127fc71031e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_layers:
-  - m_isActive: 1
-    m_sprite: {fileID: 21300000, guid: 0afb74f1112a33642afa1ee54961c511, type: 3}
-    m_doesTile: 1
-    m_isForeground: 1
-    m_scale: {x: -11.2, y: 11.2}
-    m_positionOffSet: {x: 0, y: 0}
-    m_gap: 0
-    m_scrollSpeed: -100
-  - m_isActive: 1
-    m_sprite: {fileID: 21300000, guid: 7d0fe080744bb5342986d5bf6a589bd7, type: 3}
-    m_doesTile: 0
-    m_isForeground: 1
-    m_scale: {x: 11.2, y: 11.2}
-    m_positionOffSet: {x: 0, y: 0}
-    m_gap: 16
-    m_scrollSpeed: -75
-  - m_isActive: 1
-    m_sprite: {fileID: 21300000, guid: 5ec100339cf74b343aca9c62fcf59735, type: 3}
-    m_doesTile: 0
-    m_isForeground: 1
-    m_scale: {x: 11.2, y: 11.2}
-    m_positionOffSet: {x: 0, y: 0}
-    m_gap: 0
-    m_scrollSpeed: -60
-  - m_isActive: 1
-    m_sprite: {fileID: 21300000, guid: 1066b18e216564e47bed1e412b896859, type: 3}
-    m_doesTile: 1
-    m_isForeground: 0
-    m_scale: {x: 11.2, y: 11.2}
-    m_positionOffSet: {x: 0, y: 0}
-    m_gap: 0
-    m_scrollSpeed: -20
-  - m_isActive: 1
-    m_sprite: {fileID: 21300000, guid: 0576a8dec1474cc4380a7ec2a2ffedde, type: 3}
-    m_doesTile: 1
-    m_isForeground: 0
-    m_scale: {x: 0.5, y: 0.5}
-    m_positionOffSet: {x: -16.45, y: -1}
-    m_gap: 50
-    m_scrollSpeed: -20
-  - m_isActive: 1
-    m_sprite: {fileID: 21300000, guid: 682558ef1bbb9cd4f843f1afd23aaf44, type: 3}
-    m_doesTile: 1
-    m_isForeground: 0
-    m_scale: {x: 0.1, y: 0.1}
-    m_positionOffSet: {x: 15, y: 9}
-    m_gap: 1000
-    m_scrollSpeed: -20
-  - m_isActive: 1
-    m_sprite: {fileID: 21300000, guid: bc305cb69a61cea4eba9d1064c58e188, type: 3}
-    m_doesTile: 1
-    m_isForeground: 0
-    m_scale: {x: 11.2, y: 11.2}
-    m_positionOffSet: {x: 0, y: 0}
-    m_gap: 0
-    m_scrollSpeed: -20
+  m_levelSetting:
+  - m_layers:
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 0afb74f1112a33642afa1ee54961c511, type: 3}
+      m_doesTile: 1
+      m_isForeground: 1
+      m_scale: {x: -11.2, y: 11.2}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 0
+      m_scrollSpeed: -100
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 7d0fe080744bb5342986d5bf6a589bd7, type: 3}
+      m_doesTile: 0
+      m_isForeground: 1
+      m_scale: {x: 11.2, y: 11.2}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 16
+      m_scrollSpeed: -75
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 5ec100339cf74b343aca9c62fcf59735, type: 3}
+      m_doesTile: 0
+      m_isForeground: 1
+      m_scale: {x: 11.2, y: 11.2}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 0
+      m_scrollSpeed: -60
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 1066b18e216564e47bed1e412b896859, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 11.2, y: 11.2}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 0
+      m_scrollSpeed: -20
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 0576a8dec1474cc4380a7ec2a2ffedde, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 0.5, y: 0.5}
+      m_positionOffSet: {x: -16.45, y: -1}
+      m_gap: 50
+      m_scrollSpeed: -20
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 682558ef1bbb9cd4f843f1afd23aaf44, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 0.1, y: 0.1}
+      m_positionOffSet: {x: 15, y: 9}
+      m_gap: 1000
+      m_scrollSpeed: -20
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: bc305cb69a61cea4eba9d1064c58e188, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 11.2, y: 11.2}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 0
+      m_scrollSpeed: -20
+  - m_layers:
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 682558ef1bbb9cd4f843f1afd23aaf44, type: 3}
+      m_doesTile: 0
+      m_isForeground: 0
+      m_scale: {x: 2, y: 2}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 0
+      m_scrollSpeed: -10
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 682558ef1bbb9cd4f843f1afd23aaf44, type: 3}
+      m_doesTile: 1
+      m_isForeground: 1
+      m_scale: {x: 1, y: 1}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 10
+      m_scrollSpeed: 20
+  m_speedMult: 0
 --- !u!4 &1190850904
 Transform:
   m_ObjectHideFlags: 0
@@ -565,7 +584,7 @@ Transform:
   - {fileID: 1768606245}
   - {fileID: 489560784}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1226113848
 BoxCollider2D:
@@ -786,7 +805,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1768606244
 GameObject:
@@ -816,5 +835,52 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1226113847}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1868199066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1868199068}
+  - component: {fileID: 1868199067}
+  m_Layer: 0
+  m_Name: LavelManagerObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1868199067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868199066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538d8880cca8e9b40a1c29a6a58dd1ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_reload: 1
+  m_PE: {fileID: 1190850903}
+  m_currentLevelIndex: 0
+  m_OverallSpeedMultipler: 1
+--- !u!4 &1868199068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1868199066}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
