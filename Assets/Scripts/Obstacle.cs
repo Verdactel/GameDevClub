@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+
     public float speed = 10.0f;
+    public float existTime = 4.0f;
     private Rigidbody rb;
     private Vector2 screenBounds;
 
@@ -17,22 +19,28 @@ public class Obstacle : MonoBehaviour
 
     }
 
-    //Runs on a collision
-    private void OnCollisionEnter(Collision other){
-        Debug.Log("Hit Detected");
-        ObjectDeath();
-    }
-    
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x < screenBounds.x * 2){
-            ObjectDeath();
-        }
+        WaitAndDestroy(existTime);
+    }
+
+    // Delay to death function
+    private void WaitAndDestroy(float delay)
+    {
+        ObjectDeath(delay);
+    }
+
+    //Runs on a collision
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log("Hit Detected");
+        ObjectDeath(0);
     }
 
     //Death Method
-    public void ObjectDeath(){
-        Destroy(this.gameObject);
+    public void ObjectDeath(float delay)
+    {
+        Destroy(this.gameObject, delay);
     }
 }
