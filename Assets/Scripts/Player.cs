@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Player : MonoBehaviour
 {
     [Header("Fine Toon")]
@@ -13,15 +14,16 @@ public class Player : MonoBehaviour
         [SerializeField] int m_isFlying = 0;
     [Tooltip("multiplyer for gravity to allow stronger jump when key held vs not held. 0.1 = fall 90% slower.")]
         [SerializeField] float m_gravityResist = 0.5f;
-    [SerializeField] float m_glidingFallClamp = -2.0f;
-    [SerializeField] float m_flapStrength = 20.0f;
-    [SerializeField] float m_flySpeed = 12.0f;
+    [SerializeField] float m_glidingFallClamp = -2.0f;//if in fly state 1, "glide" by not falling faster than x speed
+    [SerializeField] float m_flapStrength = 20.0f;//jump strength but for already in the air with fly state 2
+    [SerializeField] float m_flySpeed = 16.0f;//vertical speed if in fly state 3
 
     [SerializeField] int m_maxHealth = 100;
 
+
     [Header("Fill")]
-    [SerializeField] float m_groundY = -7.95f;
-    [SerializeField] Transform m_bottomPoint;
+    [SerializeField] float m_groundY = -7.95f;//the ground is currently just a number. this is on the assumption that there are no platforms in the game
+    [SerializeField] Transform m_bottomPoint;//players feet. what point should be held at the ground
     [SerializeField] Slider m_healthBarSlider;
     
 
@@ -45,13 +47,15 @@ public class Player : MonoBehaviour
     {
         #region Movement
         {
-            //Gravity (and resistance to)
+            //Gravity (and resistance to). there is no gravity if in fly state 3
             if (m_isFlying < 3)
             {
                 if (Input.GetAxis("Vertical") > 0)
                 {
+                    //higher jump when key held
                     m_velocity.y -= m_gravity * m_gravityResist;
 
+                    //glid clamp
                     if (m_isFlying == 1)
                     {
                         if (m_velocity.y < m_glidingFallClamp)
@@ -60,24 +64,18 @@ public class Player : MonoBehaviour
                         }
                     }
                 }
+                //If you aren't flying, and you arent trying to stay in the air, then just fall forhead
                 else
                 {
                     m_velocity.y -= m_gravity;
-                }
-
-                
+                }                
             }
 
-            m_isOnGround = m_bottomPoint.position.y <= m_groundY;
-            if (m_isOnGround && m_velocity.y < 0.0f)
-            {
-                m_velocity.y = 0.0f;
-            }
-
+            //if jump key is held
             if (Input.GetAxis("Vertical") > 0)
             {
                 //Jump
-                if (m_isOnGround && m_isFlying >= 0 && Input.GetButtonDown("Vertical"))
+                if (m_isOnGround && m_isFlying >= 0)
                 {
 
                     m_velocity.y = m_jumpStrength;
@@ -88,20 +86,21 @@ public class Player : MonoBehaviour
                 {
                     m_velocity.y = m_flapStrength;
                 }
-                //Fly
-                else if (m_isFlying == 3)
-                {
-                    m_velocity.y = m_flySpeed;
-                }
             }
             //Fly
             if (m_isFlying == 3)
             {
-                m_velocity.y = m_horizontalSpeed * Input.GetAxis("Vertical");
+                m_velocity.y = m_flySpeed * Input.GetAxis("Vertical");
             }
             //Run
             m_velocity.x = m_horizontalSpeed * Input.GetAxis("Horizontal");
 
+            //stop at ground
+            m_isOnGround = m_bottomPoint.position.y <= m_groundY;
+            if (m_isOnGround && m_velocity.y < 0.0f)
+            {
+                m_velocity.y = 0.0f;
+            }
 
             //Apply
             this.gameObject.transform.position += (new Vector3(m_velocity.x, m_velocity.y, 0.0f) * Time.deltaTime);
@@ -114,6 +113,7 @@ public class Player : MonoBehaviour
             //screen hight = 20 assuming no body messed with the camera
             float screenWidth = 20.0f / ((float)Screen.height / (float)Screen.width);
 
+            //If you're off the various sides of the screen, get set to at said side of screen
             Vector3 pos = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
             if (this.gameObject.transform.position.x < -(screenWidth / 2))
             {

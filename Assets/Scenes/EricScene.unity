@@ -631,7 +631,7 @@ MonoBehaviour:
   m_gravityResist: 0.5
   m_glidingFallClamp: -2
   m_flapStrength: 20
-  m_flySpeed: 12
+  m_flySpeed: 16
   m_maxHealth: 100
   m_groundY: -7.95
   m_bottomPoint: {fileID: 1768606245}

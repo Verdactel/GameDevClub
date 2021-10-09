@@ -12,12 +12,7 @@ public class LevelManager : MonoBehaviour
     public int m_currentLevelIndex = 0;
     public float m_OverallSpeedMultipler = 1.0f;
 
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (m_reload)
