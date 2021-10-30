@@ -410,6 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b48ba769b133464287e6127fc71031e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_fadeOutTime: 1
   m_levelSetting:
   - m_layers:
     - m_isActive: 1
@@ -485,6 +486,63 @@ MonoBehaviour:
       m_positionOffSet: {x: 0, y: 0}
       m_gap: 10
       m_scrollSpeed: 20
+  - m_layers:
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: ed1d9992740ec674bbf2666ba2e7a7b1, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 7.5, y: 7.5}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 0
+      m_scrollSpeed: -15
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: a6fb3327b230c0843a85b25dec3a6b92, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 7.5, y: 7.5}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 10
+      m_scrollSpeed: -13
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 8301efe930056db42b8054a1d01fb458, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 7.5, y: 7.5}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 15
+      m_scrollSpeed: -10
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: ef4cb25da7b8cb64597ddb95a4e91d0e, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 7.5, y: 7.5}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 10
+      m_scrollSpeed: -10
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: 8fa1a58f1a169634aba61a582e67e9b9, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 9, y: 9}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 5
+      m_scrollSpeed: -10
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: ca6dc0231a2c73e4f9f0edba6ea4919c, type: 3}
+      m_doesTile: 0
+      m_isForeground: 0
+      m_scale: {x: 9, y: 9}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 0
+      m_scrollSpeed: -8
+    - m_isActive: 1
+      m_sprite: {fileID: 21300000, guid: f81f0ef14b885fc41affeffae806dbaf, type: 3}
+      m_doesTile: 1
+      m_isForeground: 0
+      m_scale: {x: 7.5, y: 7.5}
+      m_positionOffSet: {x: 0, y: 0}
+      m_gap: 0
+      m_scrollSpeed: -4
   m_speedMult: 0
 --- !u!4 &1190850904
 Transform:
@@ -868,8 +926,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_reload: 1
   m_PE: {fileID: 1190850903}
-  m_currentLevelIndex: 0
-  m_OverallSpeedMultipler: 1
+  m_currentLevelIndex: 2
+  m_worldSpeedMultipler: 1
 --- !u!4 &1868199068
 Transform:
   m_ObjectHideFlags: 0

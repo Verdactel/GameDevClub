@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParalaxEngine : MonoBehaviour
+public class ParalaxEngine : MonoBehaviour // This system runs on the assumption of the camera being at 0 -500 0, orthographic, and vertical size 10
 {
-    // This system runs on the assumption of the camera being at 0 -500 0, orthographic, and vertical size 10
 
+    [SerializeField] public float m_fadeOutTime;
     [SerializeField] public List<ParalaxLayerGroup> m_levelSetting;
 
-
     public float m_speedMult;
-
     private int m_settingIndex;
     private List<List<GameObject>> m_layerImageGroups;
     private float screenWidth = 20.0f / ((float)Screen.height / (float)Screen.width); // 20 = vertical size * 2
@@ -22,16 +20,35 @@ public class ParalaxEngine : MonoBehaviour
 
         for (int f = 0; f < m_layerImageGroups.Count; f++)
         {
-            //If the layer is not active, skip to the next layer
-            if (!m_levelSetting[m_settingIndex].m_layers[f].m_isActive)
-            {
-                continue;
-            }
-
             //A layer is made of multiple of the same image. This for loop goes through those images and moves them together
+            float alpha = 0.0f;
             for (int n = 0; n < m_layerImageGroups[f].Count; n++)
             {
                 SpriteRenderer spriteR = m_layerImageGroups[f][n].GetComponent<SpriteRenderer>();
+
+                //if layer is inactive/active, fade it out/in
+                if (n == 0)
+                {
+                    if (!m_levelSetting[m_settingIndex].m_layers[f].m_isActive)
+                    {
+                        if (spriteR.color.a > 0.0f)
+                        {
+                            alpha = -(1 / m_fadeOutTime) * Time.deltaTime;
+                        }
+                        else
+                        {
+                            //break; Invisable layers move still so we can keep them lined up with things. If we decide that's not nessasary add this line back in for a micro scopic performance boost
+                        }
+                    }
+                    else
+                    {
+                        if (spriteR.color.a < 1.0f)
+                        {
+                            alpha = (1 / m_fadeOutTime) * Time.deltaTime;
+                        }
+                    }
+                }
+                spriteR.color = new Color(spriteR.color.r, spriteR.color.g, spriteR.color.b, spriteR.color.a + alpha);
 
                 //Simply move the image
                 m_layerImageGroups[f][n].transform.position += Vector3.right * m_levelSetting[m_settingIndex].m_layers[f].m_scrollSpeed * distance * m_speedMult;
@@ -90,11 +107,12 @@ public class ParalaxEngine : MonoBehaviour
             int imageCountNeeded = (int)(screenWidth / ((layer.m_sprite.bounds.size.x) * Mathf.Abs(layer.m_scale.x) + layer.m_gap)) + 2;
             for (int f = 0; f < imageCountNeeded; f++)
             {
-                //Create an image of the layer
+                //Create image object
                 GameObject layerItem = new GameObject();
                 layerItem.transform.parent = parent.transform;
                 layerItem.name = "Layer Item " + f;
                 m_layerImageGroups[m_layerImageGroups.Count - 1].Add(layerItem);
+                //Make image object an image
                 SpriteRenderer spriteR = m_layerImageGroups[m_layerImageGroups.Count - 1][f].AddComponent<SpriteRenderer>();
                 spriteR.sprite = layer.m_sprite;
                 spriteR.transform.localScale *= layer.m_scale;
@@ -116,6 +134,12 @@ public class ParalaxEngine : MonoBehaviour
                 {
                     m_layerImageGroups[m_layerImageGroups.Count - 1][f].transform.position = m_layerImageGroups[m_layerImageGroups.Count - 1][0].transform.position
                             + (Vector3.right * (spriteR.sprite.bounds.size.x * Mathf.Abs(layer.m_scale.x) + layer.m_gap) * f);
+                }
+
+                //If layer inactive, make it invisable
+                if (!layer.m_isActive)
+                {
+                    spriteR.color = new Color(spriteR.color.r, spriteR.color.g, spriteR.color.b, 0.0f);
                 }
             }
         }

@@ -10,7 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] ParalaxEngine m_PE;
 
     public int m_currentLevelIndex = 0;
-    public float m_OverallSpeedMultipler = 1.0f;
+    public float m_worldSpeedMultipler = 1.0f;
 
 
     void Update()
@@ -22,6 +22,6 @@ public class LevelManager : MonoBehaviour
             m_PE.LoadNewSetting(m_currentLevelIndex);
         }
 
-        m_PE.m_speedMult = m_OverallSpeedMultipler;
+        m_PE.m_speedMult = m_worldSpeedMultipler;
     }
 }
