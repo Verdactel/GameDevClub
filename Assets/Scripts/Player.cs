@@ -7,27 +7,25 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [Header("Fine Toon")]
-    [SerializeField] float m_jumpStrength = 30.0f;
-    [SerializeField] float m_horizontalSpeed = 12.0f;
-    [SerializeField] float m_gravity = 0.2f;
+    public float m_jumpStrength = 30.0f;
+    public float m_horizontalSpeed = 12.0f;
+    public float m_gravity = 0.2f;
     [Tooltip("-1 = running no jumping, 0 = running & jumping, 1 = glide when fall (while holding jump), 2 = flapy bird, 3 = flying")]
-        [SerializeField] int m_isFlying = 0;
+    public int m_isFlying = 0;
     [Tooltip("multiplyer for gravity to allow stronger jump when key held vs not held. 0.1 = fall 90% slower.")]
-        [SerializeField] float m_gravityResist = 0.5f;
-    [SerializeField] float m_glidingFallClamp = -2.0f;//if in fly state 1, "glide" by not falling faster than x speed
-    [SerializeField] float m_flapStrength = 20.0f;//jump strength but for already in the air with fly state 2
-    [SerializeField] float m_flySpeed = 16.0f;//vertical speed if in fly state 3
+    public float m_gravityResist = 0.5f;
+    public float m_glidingFallClamp = -2.0f;//if in fly state 1, "glide" by not falling faster than x speed
+    public float m_flapStrength = 20.0f;//jump strength but for already in the air with fly state 2
+    public float m_flySpeed = 16.0f;//vertical speed if in fly state 3
 
-    [SerializeField] int m_maxHealth = 100;
-
+    public int m_maxHealth = 100;
 
     [Header("Fill")]
-    [SerializeField] float m_groundY = -7.95f;//the ground is currently just a number. this is on the assumption that there are no platforms in the game
-    [SerializeField] Transform m_bottomPoint;//players feet. what point should be held at the ground
-    [SerializeField] Slider m_healthBarSlider;
-    
+    public float m_groundY = -7.95f; //the ground is currently just a number. this is on the assumption that there are no platforms in the game
+    public Transform m_bottomPoint; //players feet. what point should be held at the ground
+    public Slider m_healthBarSlider;
 
-    [Header("\"Public Variables (Touch with cution)\"")]
+    [Header("Touch with cution")]
     public bool m_isOnGround = true;
 
     public int m_health = 0;

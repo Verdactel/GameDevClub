@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class ParalaxEngine : MonoBehaviour // This system runs on the assumption of the camera being at 0 -500 0, orthographic, and vertical size 10
 {
+    [Header("Fine Toon")]
+    public float m_fadeOutTime;
+    public List<ParalaxLayerGroup> m_levelScene;
 
-    [SerializeField] public float m_fadeOutTime;
-    [SerializeField] public List<ParalaxLayerGroup> m_levelSetting;
-
+    [Header("Touch with Cution")]
     public float m_speedMult;
-    private int m_settingIndex;
+
+    private int m_sceneIndex;
     private List<List<GameObject>> m_layerImageGroups;
     private float screenWidth = 20.0f / ((float)Screen.height / (float)Screen.width); // 20 = vertical size * 2
 
@@ -29,7 +31,7 @@ public class ParalaxEngine : MonoBehaviour // This system runs on the assumption
                 //if layer is inactive/active, fade it out/in
                 if (n == 0)
                 {
-                    if (!m_levelSetting[m_settingIndex].m_layers[f].m_isActive)
+                    if (!m_levelScene[m_sceneIndex].m_layers[f].m_isActive)
                     {
                         if (spriteR.color.a > 0.0f)
                         {
@@ -51,24 +53,24 @@ public class ParalaxEngine : MonoBehaviour // This system runs on the assumption
                 spriteR.color = new Color(spriteR.color.r, spriteR.color.g, spriteR.color.b, spriteR.color.a + alpha);
 
                 //Simply move the image
-                m_layerImageGroups[f][n].transform.position += Vector3.right * m_levelSetting[m_settingIndex].m_layers[f].m_scrollSpeed * distance * m_speedMult;
+                m_layerImageGroups[f][n].transform.position += Vector3.right * m_levelScene[m_sceneIndex].m_layers[f].m_scrollSpeed * distance * m_speedMult;
 
                 //If the image has scrolled off the left side of the screen...
-                if (m_layerImageGroups[f][n].transform.position.x < (-screenWidth / 2) - (spriteR.sprite.bounds.extents.x * Mathf.Abs(m_levelSetting[m_settingIndex].m_layers[f].m_scale.x) + (m_levelSetting[m_settingIndex].m_layers[f].m_gap / 2)))
+                if (m_layerImageGroups[f][n].transform.position.x < (-screenWidth / 2) - (spriteR.sprite.bounds.extents.x * Mathf.Abs(m_levelScene[m_sceneIndex].m_layers[f].m_scale.x) + (m_levelScene[m_sceneIndex].m_layers[f].m_gap / 2)))
                 {
                     //...Move it to the right side of the screen, but relative to its size so it stays in line with its layer
-                    m_layerImageGroups[f][n].transform.position += Vector3.right * ((spriteR.sprite.bounds.size.x * Mathf.Abs(m_levelSetting[m_settingIndex].m_layers[f].m_scale.x) + m_levelSetting[m_settingIndex].m_layers[f].m_gap) * m_layerImageGroups[f].Count);
+                    m_layerImageGroups[f][n].transform.position += Vector3.right * ((spriteR.sprite.bounds.size.x * Mathf.Abs(m_levelScene[m_sceneIndex].m_layers[f].m_scale.x) + m_levelScene[m_sceneIndex].m_layers[f].m_gap) * m_layerImageGroups[f].Count);
                     //If the image isn't tialable (must be set manualy) and an odd number of images was generated for this layer, flip the image every time it changes sides so that the pixles transition seemlesly
-                    if (!m_levelSetting[m_settingIndex].m_layers[f].m_doesTile && m_layerImageGroups[f].Count % 2 == 1)
+                    if (!m_levelScene[m_sceneIndex].m_layers[f].m_doesTile && m_layerImageGroups[f].Count % 2 == 1)
                     {
                         spriteR.flipX = !spriteR.flipX;
                     }
                 }
                 //The same but for the right side of the screen
-                else if (m_layerImageGroups[f][n].transform.position.x > (screenWidth / 2) + (spriteR.sprite.bounds.extents.x * Mathf.Abs(m_levelSetting[m_settingIndex].m_layers[f].m_scale.x) + (m_levelSetting[m_settingIndex].m_layers[f].m_gap / 2)))
+                else if (m_layerImageGroups[f][n].transform.position.x > (screenWidth / 2) + (spriteR.sprite.bounds.extents.x * Mathf.Abs(m_levelScene[m_sceneIndex].m_layers[f].m_scale.x) + (m_levelScene[m_sceneIndex].m_layers[f].m_gap / 2)))
                 {
-                    m_layerImageGroups[f][n].transform.position -= Vector3.right * ((spriteR.sprite.bounds.size.x * Mathf.Abs(m_levelSetting[m_settingIndex].m_layers[f].m_scale.x) + m_levelSetting[m_settingIndex].m_layers[f].m_gap) * m_layerImageGroups[f].Count);
-                    if (!m_levelSetting[m_settingIndex].m_layers[f].m_doesTile && m_layerImageGroups[f].Count % 2 == 1)
+                    m_layerImageGroups[f][n].transform.position -= Vector3.right * ((spriteR.sprite.bounds.size.x * Mathf.Abs(m_levelScene[m_sceneIndex].m_layers[f].m_scale.x) + m_levelScene[m_sceneIndex].m_layers[f].m_gap) * m_layerImageGroups[f].Count);
+                    if (!m_levelScene[m_sceneIndex].m_layers[f].m_doesTile && m_layerImageGroups[f].Count % 2 == 1)
                     {
                         spriteR.flipX = !spriteR.flipX;
                     }
@@ -77,7 +79,7 @@ public class ParalaxEngine : MonoBehaviour // This system runs on the assumption
         }
     }
 
-    public void LoadNewSetting(int settingIndex)
+    public void LoadNewScene(int sceneIndex)
     {
         //Destroy the current group of layers (level scene)
         for (int f = transform.childCount - 1; f >= 0; f--)
@@ -85,12 +87,11 @@ public class ParalaxEngine : MonoBehaviour // This system runs on the assumption
             Destroy(this.transform.GetChild(f).gameObject);
         }
 
-        //setting as in scene setting, not option settings
-        m_settingIndex = settingIndex;
+        m_sceneIndex = sceneIndex;
         m_layerImageGroups = new List<List<GameObject>>();
 
         //create each layer for the new scene
-        foreach (ParalaxLayer layer in m_levelSetting[settingIndex].m_layers)
+        foreach (ParalaxLayer layer in m_levelScene[sceneIndex].m_layers)
         {
             //Create a new empty game object to hold the group, move it to be under this engine, and name it
             GameObject parent = new GameObject();

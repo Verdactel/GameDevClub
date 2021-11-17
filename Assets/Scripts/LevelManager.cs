@@ -4,24 +4,41 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] bool m_reload;
+    [Header("Developer")]
+    public bool m_reloadScene;
 
     [Header("Fill")]
-    [SerializeField] ParalaxEngine m_PE;
+    public ParalaxEngine m_PpralaxEngine;
+    public ObstacleManager m_obstacleManager;
 
+    [Header("Touch With Custion")]
     public int m_currentLevelIndex = 0;
     public float m_worldSpeedMultipler = 1.0f;
+
+    private float m_runDuration = 0.0f;
+    private float m_levelLocation = 0.0f;
 
 
     void Update()
     {
-        if (m_reload)
+        #region Other
         {
-            m_reload = false;
-            
-            m_PE.LoadNewSetting(m_currentLevelIndex);
+            m_runDuration += Time.deltaTime;
+            m_levelLocation += Time.deltaTime * m_worldSpeedMultipler;
         }
+        #endregion
 
-        m_PE.m_speedMult = m_worldSpeedMultipler;
+        #region Paralax Engine
+        {
+            if (m_reloadScene)
+            {
+                m_reloadScene = false;
+
+                m_PpralaxEngine.LoadNewScene(m_currentLevelIndex);
+            }
+
+            m_PpralaxEngine.m_speedMult = m_worldSpeedMultipler;
+        }
+        #endregion
     }
 }
