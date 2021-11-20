@@ -125,7 +125,7 @@ public class ParalaxEngine : MonoBehaviour // This system runs on the assumption
                 //No one cares about the z axis nerd. so like, just put it not 0.0 and then move them little by little so that they don't clip (and so that they apear in order). And put forground closer isntead of further
                 float z = 10.0f + ((m_layerImageGroups.Count - 1) * 0.1f);
                 if (layer.m_isForeground) z -= 20.0f;
-                //The very first image gets placed specificaly where told to (when created in editor). Placing it of the screen will result in it imeadiatly looping back though.
+                //The very first image gets placed specificaly where told to by editor. Large values will put it off the top/bottom, but left and right will fix them self
                 if (f == 0)
                 {
                     m_layerImageGroups[m_layerImageGroups.Count - 1][0].transform.position = new Vector3(layer.m_positionOffSet.x, layer.m_positionOffSet.y, z);

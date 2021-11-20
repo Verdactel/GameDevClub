@@ -410,8 +410,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1269bdda8e11cb548b55416f56ab0d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToThrow: []
-  respawnTime: 1
+  m_obstacleGroups:
+  - m_obstacles:
+    - m_xLocation: {fileID: 0}
+      m_yLocation: {fileID: 0}
+      lifeTime: 0
 --- !u!4 &1133049629
 Transform:
   m_ObjectHideFlags: 0
@@ -895,11 +898,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538d8880cca8e9b40a1c29a6a58dd1ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_reloadScene: 1
   m_PpralaxEngine: {fileID: 1190850903}
   m_obstacleManager: {fileID: 1133049628}
   m_currentLevelIndex: 0
   m_worldSpeedMultipler: 1
+  m_reloadLevel: 0
 --- !u!4 &1868199068
 Transform:
   m_ObjectHideFlags: 0
